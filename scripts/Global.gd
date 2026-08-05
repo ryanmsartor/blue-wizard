@@ -8,6 +8,7 @@ var num_extra_projectiles	: int = 0
 #var dash_distance			: int = 0
 var damage_boost			: int = 0
 var invincibility_time_boost: float = 0.0
+var score_mult				: float = 0.0
 
 # boolean perks
 var attacks_pierce			: bool = false
@@ -16,6 +17,7 @@ var can_see_enemy_health	: bool = true
 # start with 5 health, gain 1 each level.
 var health					: int = 5
 var round_number			: int = 1
+var score					: int = 0
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():
@@ -41,4 +43,4 @@ func print_player_stats():
 	print("invincibility time: ", invincibility_time_boost)
 	print("piercing: ", str(attacks_pierce))
 	print("see enemy health: ", str(can_see_enemy_health))
-	
+	print("score mult: ", score_mult)

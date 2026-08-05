@@ -123,6 +123,7 @@ func _on_Player_area_entered(_area):
 func take_damage():
 	blink_red()
 	Global.health -= 1
+	Global.score -= 10 * Global.score_mult
 	$InvincibilityTimer.set_wait_time(get_invincibility_duration())
 	$InvincibilityTimer.start()
 
@@ -150,4 +151,4 @@ func _on_Player_area_exited(_area):
 
 
 func get_invincibility_duration():
-	return (0.25 + (0.05 * Global.invincibility_time_boost))
+	return (0.25 + (0.075 * Global.invincibility_time_boost))

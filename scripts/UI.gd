@@ -15,6 +15,7 @@ func _ready():
 func _process(delta):
 	update_health_display()
 	update_level_display()
+	update_score_display()
 
 
 func update_health_display():
@@ -23,3 +24,6 @@ func update_health_display():
 func update_level_display():
 	var level = Global.round_number
 	$LevelLabel.text = "Level " + str(level)
+
+func update_score_display():
+	$ScoreLabel.text = str(Global.score)

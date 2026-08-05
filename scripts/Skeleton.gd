@@ -37,6 +37,7 @@ func take_damage():
 	blink_red()
 	health -= Global.get_attack_damage()
 	if health <= 0:
+		Global.score += int(Global.round_number * 100 * pow(1.2,Global.score_mult))
 		self.queue_free()
 
 

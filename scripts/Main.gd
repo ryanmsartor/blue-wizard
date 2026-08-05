@@ -97,6 +97,6 @@ func get_num_skeletons():
 	return count
 
 func reset_all():
-	Global.get_tree().reload_current_scene()
+	Global.reload_current_scene()
 	get_tree().set_pause(false)
 	get_tree().reload_current_scene()
