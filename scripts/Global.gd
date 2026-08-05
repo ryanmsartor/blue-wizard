@@ -30,3 +30,15 @@ var round_number			: int = 1
 func get_attack_damage():
 	return 1 + damage_boost * (damage_boost + 1) / 2
 	
+
+func print_player_stats():
+	print("------PLAYER STATS------")
+	print("move speed: ", move_speed_boost)
+	print("projectile speed: ", projectile_speed_boost)
+	print("attack speed: ", attack_speed_boost)
+	print("extra projectiles: ", num_extra_projectiles)
+	print("damage boost: ", damage_boost)
+	print("invincibility time: ", invincibility_time_boost)
+	print("piercing: ", str(attacks_pierce))
+	print("see enemy health: ", str(can_see_enemy_health))
+	
