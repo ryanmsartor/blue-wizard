@@ -22,9 +22,9 @@ func _process(delta):
 	# enemies need to know this in order to chase you
 	player_position = $Player.position
 	
-	if Global.health < 0:
-		pass # put game over stuff here
-
+	if Global.health <= 0:
+		# reset_all()
+		pass
 
 func start_round():
 	max_enemies_onscreen = get_max_num_enemies_onscreen()
@@ -35,13 +35,15 @@ func start_round():
 	
 func _on_SpawnTimer_timeout():
 	var skellies_onscreen = get_num_skeletons()
-	# print("skellies onscreen: ", skellies_onscreen)
+	var new_wait_time = max(0.1, (2.05 - (0.05 * Global.round_number)))
+	print("skellies onscreen: ", skellies_onscreen)
 	if num_enemies_left <= 0 and skellies_onscreen <= 0:
 		end_round()	
 	if skellies_onscreen < max_enemies_onscreen and num_enemies_left > 0:
 		spawn_skeleton()
 		num_enemies_left -= 1
-	# print("skellies left to spawn: ", num_enemies_left)
+	print("skellies left to spawn: ", num_enemies_left)
+	$SpawnTimer.set_wait_time(new_wait_time)
 	
 func end_round():
 	Global.round_number += 1
@@ -93,3 +95,8 @@ func get_num_skeletons():
 		if "Skeleton" in child.name:
 			count += 1
 	return count
+
+func reset_all():
+	Global.get_tree().reload_current_scene()
+	get_tree().set_pause(false)
+	get_tree().reload_current_scene()
