@@ -1,5 +1,15 @@
 extends Panel
 
+const str_heal		: String = "Heal up to level"
+const str_move_spd	: String = "Increase movement speed"
+const str_proj_spd	: String = "Increase projectile speed"
+const str_atk_spd	: String = "Increase fire rate"
+const str_num_proj	: String = "Increase number of fireballs"
+const str_atk_pow	: String = "Increase damage dealt"
+const str_iframes	: String = "Lengthen invincibility after getting hit"
+const str_pierce	: String = "Attacks pierce through enemies"
+const str_scan		: String = "See enemy health remaining"
+
 var possible_upgrades: Array = []
 var selected_upgrades: Array = []
 
@@ -22,23 +32,23 @@ func get_possible_upgrades():
 	possible_upgrades.clear()
 	
 	if Global.health < Global.round_number:
-		possible_upgrades.append("Heal up to level")
+		possible_upgrades.append(str_heal)
 	if Global.move_speed_boost < 15:
-		possible_upgrades.append("Increase movement speed")
+		possible_upgrades.append(str_move_spd)
 	if Global.projectile_speed_boost < 15:
-		possible_upgrades.append("Increase projectile speed")
+		possible_upgrades.append(str_proj_spd)
 	if Global.attack_speed_boost < 15:
-		possible_upgrades.append("Increase fire rate")
+		possible_upgrades.append(str_atk_spd)
 	if Global.num_extra_projectiles < 15:
-		possible_upgrades.append("Increase number of fireballs")
+		possible_upgrades.append(str_num_proj)
 	if Global.damage_boost < 15:
-		possible_upgrades.append("Increase damage dealt")
+		possible_upgrades.append(str_atk_pow)
 	if Global.invincibility_time_boost < 15:
-		possible_upgrades.append("Lengthen invincibility after getting hit")
+		possible_upgrades.append(str_iframes)
 	if Global.attacks_pierce == false:
-		possible_upgrades.append("Attacks pierce through enemies")
+		possible_upgrades.append(str_pierce)
 	if Global.can_see_enemy_health == false:
-		possible_upgrades.append("See enemy health remaining")
+		possible_upgrades.append(str_scan)
 
 func select_3_random_upgrades():
 	selected_upgrades.clear()
@@ -53,30 +63,28 @@ func assign_upgrades_to_buttons():
 
 func act_on_button(button_text):
 	match button_text:
-		"Heal up to level":
+		str_heal:
 			Global.health = Global.round_number
-		"Increase movement speed":
+		str_move_spd:
 			Global.move_speed_boost += 1
-		"Increase projectile speed":
+		str_proj_spd:
 			Global.projectile_speed_boost += 1
-		"Increase fire rate":
+		str_atk_spd:
 			Global.attack_speed_boost += 1
-		"Increase number of fireballs":
+		str_num_proj:
 			Global.num_extra_projectiles += 1
-		"Increase damage dealt":
+		str_atk_pow:
 			Global.damage_boost += 1
-		"Lengthen invincibility after getting hit":
+		str_iframes:
 			Global.invincibility_time_boost += 1
-		"Attacks pierce through enemies":
+		str_pierce:
 			Global.attacks_pierce = true
-		"See enemy health remaining":
+		str_scan:
 			Global.can_see_enemy_health = true
 	print("Selected ", button_text)
 	Global.print_player_stats()
 	get_tree().set_pause(false)
 	self.queue_free()
-
-
 
 
 
