@@ -3,6 +3,7 @@ extends Node2D
 export (PackedScene) var skeleton_scene
 export (PackedScene) var upgrade_scene
 export (PackedScene) var title_scene
+export (PackedScene) var gameover_scene
 
 var screen_size			: Vector2
 var player_position		: Vector2
@@ -103,6 +104,4 @@ func game_over():
 		print("New high score: ", Global.high_score)
 		Global.high_score = Global.score
 		Global.save_high_score()
-	Global.reset_state()
-	get_tree().set_pause(false)
-	get_tree().reload_current_scene()
+	add_child(gameover_scene.instance())
