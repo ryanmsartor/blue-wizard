@@ -43,21 +43,21 @@ pause_mode = 2
 margin_top = 36.0
 margin_right = 242.0
 margin_bottom = 56.0
-text = "Attack Power"
+text = "1"
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
 pause_mode = 2
 margin_top = 60.0
 margin_right = 242.0
 margin_bottom = 80.0
-text = "Multishot"
+text = "2"
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
 pause_mode = 2
 margin_top = 84.0
 margin_right = 242.0
 margin_bottom = 104.0
-text = "Attack Speed"
+text = "3"
 
 [connection signal="pressed" from="VBoxContainer/Button1" to="." method="_on_Button1_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]

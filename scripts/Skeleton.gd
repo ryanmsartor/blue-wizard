@@ -13,8 +13,7 @@ func _ready():
 	print("Skeleton spawned at ", position.x, ", ", position.y)
 	
 	move_speed = 30 + 2 * Global.round_number
-	health = 2 * Global.round_number
-	
+	health = int(2.1 * Global.round_number)
 	if Global.can_see_enemy_health:
 		$HealthLabel.visible = true
 

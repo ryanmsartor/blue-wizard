@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://sprites/blue_wizard.png" type="Texture" id=1]
+[ext_resource path="res://scripts/TitleScreen.gd" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="ShortCut" id=4]
+resource_name = "ui_accept"
+
+[node name="TitleScreen" type="ColorRect"]
+pause_mode = 2
+margin_right = 320.0
+margin_bottom = 240.0
+color = Color( 0.113725, 0.0509804, 0.352941, 1 )
+script = ExtResource( 2 )
+
+[node name="PlayerSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 160, 120 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 3 )
+playing = true
+
+[node name="TitleLabel" type="Label" parent="."]
+anchor_right = 1.0
+margin_bottom = 120.0
+text = "Blue Wizard"
+align = 1
+valign = 1
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 80.0
+margin_top = 200.0
+margin_right = 240.0
+margin_bottom = 220.0
+shortcut = SubResource( 4 )
+text = "START GAME"
+icon_align = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 79.0
+margin_bottom = 17.0
+text = "High Score: 0"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

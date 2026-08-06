@@ -2,6 +2,7 @@ extends Node2D
 
 export (PackedScene) var skeleton_scene
 export (PackedScene) var upgrade_scene
+export (PackedScene) var title_scene
 
 var screen_size			: Vector2
 var player_position		: Vector2
@@ -11,6 +12,7 @@ var num_enemies_left	: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_child(title_scene.instance())
 	screen_size = get_viewport_rect().size
 	randomize()
 	$SpawnTimer.start()
@@ -23,8 +25,8 @@ func _process(delta):
 	player_position = $Player.position
 	
 	if Global.health <= 0:
-		# reset_all()
-		pass
+		game_over()
+		#pass
 
 func start_round():
 	max_enemies_onscreen = get_max_num_enemies_onscreen()
@@ -96,7 +98,11 @@ func get_num_skeletons():
 			count += 1
 	return count
 
-func reset_all():
-	Global.reload_current_scene()
+func game_over():
+	if Global.score > Global.high_score:
+		print("New high score: ", Global.high_score)
+		Global.high_score = Global.score
+		Global.save_high_score()
+	Global.reset_state()
 	get_tree().set_pause(false)
 	get_tree().reload_current_scene()

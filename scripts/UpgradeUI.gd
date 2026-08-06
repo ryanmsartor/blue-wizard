@@ -23,6 +23,8 @@ func _ready():
 	get_possible_upgrades()
 	select_3_random_upgrades()
 	assign_upgrades_to_buttons()
+	$VBoxContainer/Button1.grab_focus()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

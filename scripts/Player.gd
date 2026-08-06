@@ -110,9 +110,6 @@ func _on_AttackCooldown_timeout():
 	can_attack = true
 
 
-
-
-
 func _on_Player_area_entered(_area):
 	if can_take_damage:
 		can_take_damage = false
@@ -123,7 +120,7 @@ func _on_Player_area_entered(_area):
 func take_damage():
 	blink_red()
 	Global.health -= 1
-	Global.score -= 10 * Global.score_mult
+	Global.score -= 10 * Global.round_number
 	$InvincibilityTimer.set_wait_time(get_invincibility_duration())
 	$InvincibilityTimer.start()
 
