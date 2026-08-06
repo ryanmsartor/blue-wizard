@@ -27,31 +27,28 @@ func _process(delta):
 
 func animate_player():
 	$AnimatedSprite.speed_scale = 4
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("move_up"):
 		$AnimatedSprite.animation = "up"
-	elif Input.is_action_pressed("ui_down"):
+	elif Input.is_action_pressed("move_down"):
 		$AnimatedSprite.animation = "down"
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("move_left"):
 		$AnimatedSprite.animation = "right"
 		$AnimatedSprite.flip_h = true
-	elif Input.is_action_pressed("ui_right"):
+	elif Input.is_action_pressed("move_right"):
 		$AnimatedSprite.animation = "right"
 		$AnimatedSprite.flip_h = false
 	else:
 		$AnimatedSprite.speed_scale = 1
 	
 func move_player(dt):
-	var velocity = Vector2.ZERO
-	if Input.is_action_pressed("ui_up"):
-		velocity += Vector2.UP
-	if Input.is_action_pressed("ui_down"):
-		velocity += Vector2.DOWN
-	if Input.is_action_pressed("ui_left"):
-		velocity += Vector2.LEFT
-	if Input.is_action_pressed("ui_right"):
-		velocity += Vector2.RIGHT
-	velocity = velocity.normalized() * base_move_speed * ( 1.0 + ( Global.move_speed_boost / 10.0 ))
-	position += velocity * dt
+	var input_vector = Input.get_vector(
+		"move_left",
+		"move_right",
+		"move_up",
+		"move_down"
+	)
+	input_vector = input_vector * base_move_speed * ( 1.0 + ( Global.move_speed_boost / 10.0 ))
+	position += input_vector * dt
 	position.x = clamp(position.x, 0, get_parent().screen_size.x)
 	position.y = clamp(position.y, 0, get_parent().screen_size.y)
 
@@ -70,19 +67,19 @@ func fire_projectile(num_extras):
 	projectile.position = position
 	projectile.speed *= ( 1.0 + ( Global.projectile_speed_boost / 10.0))
 	
-	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_right"):	# up right
+	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):	# up right
 		projectile.rotation = PI / 4
 		projectile.position.y -= 4
 		projectile.position.x += 8
-	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"): # down right
+	elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"): # down right
 		projectile.rotation = 3 * PI / 4
 		projectile.position.y += 12
 		projectile.position.x += 8
-	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_left"): # down left
+	elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"): # down left
 		projectile.rotation = 5 * PI / 4
 		projectile.position.y += 12
 		projectile.position.x -= 8
-	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_left"): # up left
+	elif Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"): # up left
 		projectile.rotation = 7 * PI / 4
 		projectile.position.y -= 4
 		projectile.position.x -= 8
