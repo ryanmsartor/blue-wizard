@@ -10,6 +10,7 @@ const str_iframes	: String = "Lengthen invincibility after getting hit"
 const str_pierce	: String = "Attacks pierce through enemies"
 const str_scan		: String = "See enemy health remaining"
 const str_mult		: String = "Gain 20% more points per kill"
+const str_stun		: String = "Increase enemy stagger on hit"
 
 var possible_upgrades: Array = []
 var selected_upgrades: Array = []
@@ -54,6 +55,8 @@ func get_possible_upgrades():
 		possible_upgrades.append(str_scan)
 	if Global.score_mult < 15:
 		possible_upgrades.append(str_mult)
+	if Global.attack_stun_time < 15:
+		possible_upgrades.append(str_stun)
 
 func select_3_random_upgrades():
 	selected_upgrades.clear()
@@ -88,6 +91,8 @@ func act_on_button(button_text):
 			Global.can_see_enemy_health = true
 		str_mult:
 			Global.score_mult += 1
+		str_stun:
+			Global.attack_stun_time += 1
 	print("Selected ", button_text)
 	Global.print_player_stats()
 	get_tree().set_pause(false)

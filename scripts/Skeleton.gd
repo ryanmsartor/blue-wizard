@@ -2,6 +2,7 @@ extends Area2D
 
 var move_speed: int
 var health: int
+var is_stunned: bool = false
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -23,7 +24,8 @@ func _process(delta):
 	# chase player
 	var player_pos = get_parent().player_position
 	var direction = (player_pos - position).normalized()
-	position += direction * move_speed * delta
+	if not is_stunned:
+		position += direction * move_speed * delta
 	
 	$HealthLabel.text = str(health)
 
@@ -35,6 +37,10 @@ func _on_Skeleton_area_entered(_area):
 func take_damage():
 	blink_red()
 	health -= Global.get_attack_damage()
+	if Global.attack_stun_time > 0:
+		$StunTimer.set_wait_time(0.2 * Global.attack_stun_time)
+		$StunTimer.start()
+		is_stunned = true
 	if health <= 0:
 		Global.score += int(Global.round_number * 100 * pow(1.2,Global.score_mult))
 		self.queue_free()
@@ -55,3 +61,7 @@ func blink_red():
 
 func _on_BlinkTimer_timeout():
 	self.modulate = "ffffff"
+
+
+func _on_StunTimer_timeout():
+	is_stunned = false

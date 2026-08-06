@@ -9,10 +9,11 @@ var num_extra_projectiles	: int = 0
 var damage_boost			: int = 0
 var invincibility_time_boost: float = 0.0
 var score_mult				: float = 0.0
+var attack_stun_time		: float = 0.0
 
 # boolean perks
 var attacks_pierce			: bool = false
-var can_see_enemy_health	: bool = true
+var can_see_enemy_health	: bool = false
 
 # start with 5 health, gain 1 each level.
 var health					: int = 5
