@@ -20,7 +20,7 @@ func _process(delta):
 	animate_player()
 	move_player(delta)
 
-	var aim = Input.get_vector(
+	aim = Input.get_vector(
 		"shoot_left",
 		"shoot_right",
 		"shoot_up",
@@ -29,7 +29,7 @@ func _process(delta):
 
 	if can_attack == true:
 		if Input.is_action_pressed("ui_accept") \
-		or aim.length() > 0.5:
+		or aim.length() > 0.4:
 			print(aim)
 			print(aim.length())
 			print(aim.angle())
@@ -79,7 +79,7 @@ func fire_projectile(num_extras):
 	projectile.position = position
 	projectile.speed *= ( 1.0 + ( Global.projectile_speed_boost / 10.0))
 	
-	if aim.length() < 0.5:
+	if aim.length() < 0.3:
 		
 		if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):	# up right
 			projectile.rotation = PI / 4
@@ -113,9 +113,9 @@ func fire_projectile(num_extras):
 				projectile.position.x += 12
 	
 	else:
-		#aim = aim.normalized()
+		aim = aim.normalized()
 		projectile.rotation = aim.angle() + PI / 2
-		projectile.position.y -= 4
+		#projectile.position.y -= 4
 		projectile.position += aim * 12
 	
 	# add spread for extra projectiles
