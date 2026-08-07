@@ -66,7 +66,7 @@ func move_player(dt):
 func attack():
 	
 	can_attack = false
-	$AttackCooldown.set_wait_time( 0.5 * ( 1.0 - (Global.attack_speed_boost / 16.0)) )
+	$AttackCooldown.set_wait_time( 0.5 * ( 1.0 - (Global.attack_speed_boost / 20.0)) )
 	$AttackCooldown.start()
 	
 	for i in range(0, Global.num_extra_projectiles + 1):
@@ -135,8 +135,8 @@ func _on_Player_area_entered(_area):
 
 func take_damage():
 	blink_red()
-	Global.health -= 1
-	Global.score -= 10 * Global.round_number
+	Global.health -= int(1 + 0.4 * Global.round_number)
+	Global.score -= 20 * Global.round_number
 	$InvincibilityTimer.set_wait_time(get_invincibility_duration())
 	$InvincibilityTimer.start()
 

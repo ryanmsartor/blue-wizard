@@ -38,7 +38,7 @@ func start_round():
 	
 func _on_SpawnTimer_timeout():
 	var skellies_onscreen = get_num_skeletons()
-	var new_wait_time = max(0.1, (2.05 - (0.05 * Global.round_number)))
+	var new_wait_time = max(0.01, (2.05 - (0.05 * Global.round_number)))
 	print("skellies onscreen: ", skellies_onscreen)
 	if num_enemies_left <= 0 and skellies_onscreen <= 0:
 		end_round()	
