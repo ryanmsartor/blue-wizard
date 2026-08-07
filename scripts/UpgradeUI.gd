@@ -22,10 +22,13 @@ func _ready():
 	Global.print_player_stats()
 	get_tree().set_pause(true)
 	get_possible_upgrades()
-	select_3_random_upgrades()
-	assign_upgrades_to_buttons()
-	$VBoxContainer/Button1.grab_focus()
-	
+	if possible_upgrades.size() >= 2:
+		select_3_random_upgrades()
+		assign_upgrades_to_buttons()
+		$VBoxContainer/Button1.grab_focus()
+	else:
+		get_tree().set_pause(false)
+		self.queue_free()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
