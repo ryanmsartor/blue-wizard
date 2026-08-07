@@ -7,7 +7,7 @@ export(PackedScene) var fireball_scene
 
 var can_attack = true # interacts with $AttackCooldown timer
 var can_take_damage = true
-
+var aim: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,9 +19,20 @@ func _process(delta):
 	
 	animate_player()
 	move_player(delta)
-	
+
+	var aim = Input.get_vector(
+		"shoot_left",
+		"shoot_right",
+		"shoot_up",
+		"shoot_down"
+	)
+
 	if can_attack == true:
-		if Input.is_action_pressed("ui_accept"):
+		if Input.is_action_pressed("ui_accept") \
+		or aim.length() > 0.5:
+			print(aim)
+			print(aim.length())
+			print(aim.angle())
 			attack()
 
 
@@ -55,7 +66,7 @@ func move_player(dt):
 func attack():
 	
 	can_attack = false
-	$AttackCooldown.set_wait_time( 0.5 * ( 1.0 - (Global.attack_speed_boost / 20.0)) )
+	$AttackCooldown.set_wait_time( 0.5 * ( 1.0 - (Global.attack_speed_boost / 16.0)) )
 	$AttackCooldown.start()
 	
 	for i in range(0, Global.num_extra_projectiles + 1):
@@ -64,43 +75,51 @@ func attack():
 
 func fire_projectile(num_extras):
 	var projectile = fireball_scene.instance()
+	
 	projectile.position = position
 	projectile.speed *= ( 1.0 + ( Global.projectile_speed_boost / 10.0))
 	
-	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):	# up right
-		projectile.rotation = PI / 4
+	if aim.length() < 0.5:
+		
+		if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):	# up right
+			projectile.rotation = PI / 4
+			projectile.position.y -= 4
+			projectile.position.x += 8
+		elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"): # down right
+			projectile.rotation = 3 * PI / 4
+			projectile.position.y += 12
+			projectile.position.x += 8
+		elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"): # down left
+			projectile.rotation = 5 * PI / 4
+			projectile.position.y += 12
+			projectile.position.x -= 8
+		elif Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"): # up left
+			projectile.rotation = 7 * PI / 4
+			projectile.position.y -= 4
+			projectile.position.x -= 8
+		elif $AnimatedSprite.animation == "up":		# up
+			projectile.rotation = 0
+			projectile.position.y -= 12
+		elif $AnimatedSprite.animation == "down":	# down
+			projectile.rotation = PI
+			projectile.position.y += 12
+		elif $AnimatedSprite.animation == "right":
+			projectile.position.y += 4
+			if $AnimatedSprite.flip_h: 				# left
+				projectile.rotation = 3 * PI / 2
+				projectile.position.x -= 12
+			else: 									# right
+				projectile.rotation = PI / 2
+				projectile.position.x += 12
+	
+	else:
+		#aim = aim.normalized()
+		projectile.rotation = aim.angle() + PI / 2
 		projectile.position.y -= 4
-		projectile.position.x += 8
-	elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"): # down right
-		projectile.rotation = 3 * PI / 4
-		projectile.position.y += 12
-		projectile.position.x += 8
-	elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"): # down left
-		projectile.rotation = 5 * PI / 4
-		projectile.position.y += 12
-		projectile.position.x -= 8
-	elif Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"): # up left
-		projectile.rotation = 7 * PI / 4
-		projectile.position.y -= 4
-		projectile.position.x -= 8
-	elif $AnimatedSprite.animation == "up":		# up
-		projectile.rotation = 0
-		projectile.position.y -= 12
-	elif $AnimatedSprite.animation == "down":	# down
-		projectile.rotation = PI
-		projectile.position.y += 12
-	elif $AnimatedSprite.animation == "right":
-		projectile.position.y += 4
-		if $AnimatedSprite.flip_h: 				# left
-			projectile.rotation = 3 * PI / 2
-			projectile.position.x -= 12
-		else: 									# right
-			projectile.rotation = PI / 2
-			projectile.position.x += 12
+		projectile.position += aim * 12
 	
 	# add spread for extra projectiles
 	projectile.rotation += (num_extras *(rand_range(PI/-24, PI/24) ) )
-	
 	get_parent().add_child(projectile)
 
 func _on_AttackCooldown_timeout():
