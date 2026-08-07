@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gameList>
+	<game>
+		<path>./Blue Wizard.sh</path>
+		<name>Blue Wizard</name>
+		<desc>a game</desc>
+		<releasedate>20260806T000000</releasedate>
+		<developer>Ry</developer>
+		<publisher>Ry</publisher>
+		<genre>Arcade</genre>
+		<image>./bluewizard/cover.png</image>
+	</game>
+</gameList>

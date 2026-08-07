@@ -1,0 +1,33 @@
+{
+    "version": 4,
+    "name": "bluewizard.zip",
+    "items": [
+        "Blue Wizard.sh",
+        "bluewizard"
+    ],
+    "items_opt": null,
+    "attr": {
+        "title": "Blue Wizard",
+        "porter": [
+            "Ry"
+        ],
+        "desc": "a game",
+        "desc_md": null,
+        "inst": "Ready to Run",
+        "inst_md": null,
+        "genres": [
+            "arcade"
+        ],
+        "image": {},
+        "rtr": true,
+        "exp": false,
+        "runtime": [
+            "frt_3.6.squashfs"
+        ],
+        "store": [],
+        "availability": "full",
+        "reqs": [],
+        "arch": [],
+        "min_glibc": ""
+    }
+}
