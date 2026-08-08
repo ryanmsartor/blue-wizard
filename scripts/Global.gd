@@ -77,3 +77,7 @@ func calculate_attack_delay():
 
 func calculate_shots_per_second():
 	return 1.0 / calculate_attack_delay()
+
+func get_invincibility_duration():
+	return (0.25 + (0.075 * Global.invincibility_time_boost))
+

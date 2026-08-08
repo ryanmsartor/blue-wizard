@@ -10,13 +10,13 @@ extends Panel
 func _ready():
 	get_tree().set_pause(true)
 	$GridContainer/MoveSpeedLabel.text = "Move Speed: " + str(Global.calculate_move_speed()) + "\n"
-	$GridContainer/StunLabel.text = "Stun Time: " + str(Global.attack_stun_time) + "\n"
-	$GridContainer/ProjectileSpeedLabel.text = "Projectile Speed: " + str(Global.projectile_speed_boost) + "\n"
+	$GridContainer/StunLabel.text = "Stun Time: " + str(0.2 * Global.attack_stun_time) + "\n"
+	$GridContainer/ProjectileSpeedLabel.text = "Projectile Speed: " + str(128 * ( 1.0 + ( Global.projectile_speed_boost / 10.0))) + "\n"
 	$GridContainer/NumProjectilesLabel.text = "Projectiles: " + str(Global.num_extra_projectiles + 1) + "\n"
 	$GridContainer/AttackSpeedLabel.text = "Shots Per Second: " + "%.2f" % Global.calculate_shots_per_second() + "\n"
-	$GridContainer/AttackPowerLabel.text = "Attack Power: " + str(Global.damage_boost) + "\n"
-	$GridContainer/InvincibilityLabel.text = "Invulnerability: " + str(Global.invincibility_time_boost) + "\n"
-	$GridContainer/ScoreMultLabel.text = "Score Mult: " + str(Global.calculate_true_score_mult()) + "\n"
+	$GridContainer/AttackPowerLabel.text = "Attack Power: " + str(Global.get_attack_damage()) + "\n"
+	$GridContainer/InvincibilityLabel.text = "Invulnerability: " + str(Global.get_invincibility_duration()) + "\n"
+	$GridContainer/ScoreMultLabel.text = "Score Mult: " + "%.2f" % Global.calculate_true_score_mult() + "\n"
 	$GridContainer/PierceLabel.visible = Global.attacks_pierce
 	$GridContainer/ScanLabel.visible = Global.can_see_enemy_health
 

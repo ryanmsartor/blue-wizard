@@ -54,8 +54,6 @@ func end_round():
 	start_round()
 
 
-
-
 func spawn_skeleton():
 	var skelly = skeleton_scene.instance()
 	var edge = get_random_edge()

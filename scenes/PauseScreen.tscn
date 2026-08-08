@@ -21,7 +21,7 @@ script = ExtResource( 1 )
 [node name="PauseLabel" type="Label" parent="."]
 margin_right = 272.0
 margin_bottom = 32.0
-text = "~upgrades~"
+text = "~stats~"
 align = 1
 valign = 1
 
