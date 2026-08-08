@@ -1,8 +1,5 @@
 extends Area2D
 
-
-const base_move_speed = 64
-
 export(PackedScene) var fireball_scene
 
 var can_attack = true # interacts with $AttackCooldown timer
@@ -55,7 +52,7 @@ func move_player(dt):
 		"move_up",
 		"move_down"
 	)
-	input_vector = input_vector * base_move_speed * ( 1.0 + ( Global.move_speed_boost / 10.0 ))
+	input_vector = input_vector * Global.calculate_move_speed()
 	position += input_vector * dt
 	position.x = clamp(position.x, 0, get_parent().screen_size.x)
 	position.y = clamp(position.y, 0, get_parent().screen_size.y)
@@ -63,7 +60,7 @@ func move_player(dt):
 func attack():
 	
 	can_attack = false
-	$AttackCooldown.set_wait_time( 0.5 * ( 1.0 - (Global.attack_speed_boost / 20.0)) )
+	$AttackCooldown.set_wait_time(Global.calculate_attack_delay())
 	$AttackCooldown.start()
 	
 	for i in range(0, Global.num_extra_projectiles + 1):

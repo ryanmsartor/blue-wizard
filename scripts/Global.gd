@@ -1,5 +1,7 @@
 extends Node
 
+const base_move_speed = 64
+
 # character stats able to be boosted - all range from 0 to 15
 var move_speed_boost 		: float = 0.0
 var projectile_speed_boost 	: float = 0.0
@@ -66,3 +68,12 @@ func reset_state():
 
 func calculate_true_score_mult():
 	return pow(1.2,score_mult)
+
+func calculate_move_speed():
+	return base_move_speed * ( 1.0 + ( move_speed_boost / 10.0 ))
+
+func calculate_attack_delay():
+	return 0.5 * ( 1.0 - (attack_speed_boost / 20.0))
+
+func calculate_shots_per_second():
+	return 1.0 / calculate_attack_delay()
