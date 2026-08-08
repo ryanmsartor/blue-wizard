@@ -18,7 +18,6 @@ var selected_upgrades: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Global.print_player_stats()
 	get_tree().set_pause(true)
 	get_possible_upgrades()
 	if possible_upgrades.size() >= 2:

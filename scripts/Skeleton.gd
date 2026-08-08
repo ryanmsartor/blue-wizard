@@ -42,7 +42,7 @@ func take_damage():
 		$StunTimer.start()
 		is_stunned = true
 	if health <= 0:
-		Global.score += int(Global.round_number * 100 * pow(1.2,Global.score_mult))
+		Global.score += int(Global.round_number * 100 * Global.calculate_true_score_mult())
 		self.queue_free()
 
 

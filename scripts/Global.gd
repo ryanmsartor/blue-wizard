@@ -64,3 +64,5 @@ func reset_state():
 	round_number			= 1
 	score					= 0
 
+func calculate_true_score_mult():
+	return pow(1.2,score_mult)

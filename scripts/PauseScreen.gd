@@ -16,7 +16,7 @@ func _ready():
 	$GridContainer/AttackSpeedLabel.text = "Attack Speed: " + str(Global.attack_speed_boost) + "\n"
 	$GridContainer/AttackPowerLabel.text = "Attack Power: " + str(Global.damage_boost) + "\n"
 	$GridContainer/InvincibilityLabel.text = "Invulnerability: " + str(Global.invincibility_time_boost) + "\n"
-	$GridContainer/ScoreMultLabel.text = "Score Boost: " + str(Global.score_mult) + "\n"
+	$GridContainer/ScoreMultLabel.text = "Score Mult: " + str(Global.calculate_true_score_mult()) + "\n"
 	$GridContainer/PierceLabel.visible = Global.attacks_pierce
 	$GridContainer/ScanLabel.visible = Global.can_see_enemy_health
 
