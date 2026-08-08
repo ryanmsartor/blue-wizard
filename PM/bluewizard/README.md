@@ -15,7 +15,7 @@ Thanks to efornara for FRT and Cebion for maintaining the PortMaster Godot runti
 |B||
 |Y||
 |A|accept, shoot|
-|Start||
+|Start|pause|
 
 
 
