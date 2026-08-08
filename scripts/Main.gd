@@ -4,6 +4,7 @@ export (PackedScene) var skeleton_scene
 export (PackedScene) var upgrade_scene
 export (PackedScene) var title_scene
 export (PackedScene) var gameover_scene
+export (PackedScene) var pause_scene
 
 var screen_size			: Vector2
 var player_position		: Vector2
@@ -27,7 +28,10 @@ func _process(delta):
 	
 	if Global.health <= 0:
 		game_over()
-		#pass
+	
+	if Input.is_action_just_pressed("pause_game"):
+		add_child(pause_scene.instance())
+	
 
 func start_round():
 	max_enemies_onscreen = get_max_num_enemies_onscreen()
