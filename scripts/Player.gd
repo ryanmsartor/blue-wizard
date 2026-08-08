@@ -30,9 +30,6 @@ func _process(delta):
 	if can_attack == true:
 		if Input.is_action_pressed("ui_accept") \
 		or aim.length() > 0.4:
-			print(aim)
-			print(aim.length())
-			print(aim.angle())
 			attack()
 
 
@@ -115,7 +112,6 @@ func fire_projectile(num_extras):
 	else:
 		aim = aim.normalized()
 		projectile.rotation = aim.angle() + PI / 2
-		#projectile.position.y -= 4
 		projectile.position += aim * 12
 	
 	# add spread for extra projectiles

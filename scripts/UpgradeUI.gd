@@ -18,7 +18,6 @@ var selected_upgrades: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Upgrade UI ready")
 	Global.print_player_stats()
 	get_tree().set_pause(true)
 	get_possible_upgrades()
@@ -97,20 +96,16 @@ func act_on_button(button_text):
 		str_stun:
 			Global.attack_stun_time += 1
 	print("Selected ", button_text)
-	Global.print_player_stats()
 	get_tree().set_pause(false)
 	self.queue_free()
 
 
 
 func _on_Button1_pressed():
-	print("Button 1 pressed")
 	act_on_button($VBoxContainer/Button1.text)
 
 func _on_Button2_pressed():
-	print("Button 2 pressed")
 	act_on_button($VBoxContainer/Button2.text)
 
 func _on_Button3_pressed():
-	print("Button 3 pressed")
 	act_on_button($VBoxContainer/Button3.text)

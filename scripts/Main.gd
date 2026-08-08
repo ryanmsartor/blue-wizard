@@ -36,20 +36,15 @@ func _process(delta):
 func start_round():
 	max_enemies_onscreen = get_max_num_enemies_onscreen()
 	num_enemies_left = get_num_enemies_in_round()
-	print("-----starting round ", Global.round_number,"-----")
-	print("max enemies onscreen: ", max_enemies_onscreen)
-	print("total enemies in round: ", num_enemies_left)
 	
 func _on_SpawnTimer_timeout():
 	var skellies_onscreen = get_num_skeletons()
 	var new_wait_time = max(0.01, (2.05 - (0.05 * Global.round_number)))
-	print("skellies onscreen: ", skellies_onscreen)
 	if num_enemies_left <= 0 and skellies_onscreen <= 0:
 		end_round()	
 	if skellies_onscreen < max_enemies_onscreen and num_enemies_left > 0:
 		spawn_skeleton()
 		num_enemies_left -= 1
-	print("skellies left to spawn: ", num_enemies_left)
 	$SpawnTimer.set_wait_time(new_wait_time)
 	
 func end_round():
@@ -76,7 +71,6 @@ func spawn_skeleton():
 	else: # edge == 3
 		skelly.position.y = screen_size.y
 		skelly.position.x = get_random_y_coord()
-
 	add_child(skelly)
 	
 func get_random_edge():
@@ -105,7 +99,6 @@ func get_num_skeletons():
 
 func game_over():
 	if Global.score > Global.high_score:
-		print("New high score: ", Global.high_score)
 		Global.high_score = Global.score
 		Global.save_high_score()
 	add_child(gameover_scene.instance())
