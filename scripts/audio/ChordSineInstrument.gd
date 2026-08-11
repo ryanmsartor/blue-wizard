@@ -19,6 +19,8 @@ var chord_ratios = [
 	perf8
 ]
 
+var phases = []
+
 func set_chord_type(type: String):
 	
 	match type:
@@ -85,14 +87,19 @@ func set_chord_type(type: String):
 				perf5,
 				maj9
 			]
-
+			
+	phases.clear()
+	for ratio in chord_ratios:
+		phases.append(0.0)
 
 func generate_sample(sample_hz):
 	var sample = 0.0
-
-	for ratio in chord_ratios:
-		sample += sin(fmod(phase * ratio, 1.0) * TAU)
-
-	phase = fmod(phase + frequency / sample_hz, 1.0)
-
+	
+	for i in range(chord_ratios.size()):
+		sample += sin(phases[i] * TAU)
+		
+		phases[i] = fmod(
+			phases[i] + (frequency * chord_ratios[i]) / sample_hz,
+			1.0
+		)
 	return sample / float(chord_ratios.size()) * volume

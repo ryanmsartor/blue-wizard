@@ -11,6 +11,9 @@ var ChordSineInstrument = preload("res://scripts/audio/ChordSineInstrument.gd")
 var playback: AudioStreamPlayback = null
 var instruments = []
 
+var bass
+var chord
+
 
 func _ready():
 	var generator = AudioStreamGenerator.new()
@@ -21,14 +24,14 @@ func _ready():
 
 	playback = $AudioStreamPlayer.get_stream_playback()
 
-	var bass = OctaveSquareInstrument.new()
+	bass = OctaveSquareInstrument.new()
 	bass.frequency = 55.0
-	bass.volume = 0
+	bass.volume = 0.1
 
-	var chord = ChordSineInstrument.new()
+	chord = ChordSineInstrument.new()
 	chord.frequency = 220.0
 	chord.volume = 0.4
-	chord.set_chord_type("Dim")
+	chord.set_chord_type("Maj9")
 	instruments.append(bass)
 	instruments.append(chord)
 
