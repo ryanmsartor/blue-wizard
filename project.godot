@@ -17,6 +17,7 @@ config/icon="res://sprites/icon.png"
 [autoload]
 
 Global="*res://scenes/Global.tscn"
+Synthesizer="*res://scenes/Synthesizer.tscn"
 
 [display]
 
