@@ -63,6 +63,7 @@ func attack():
 	$AttackCooldown.set_wait_time(Global.calculate_attack_delay())
 	$AttackCooldown.start()
 	
+	Synthesizer.peggi.trigger()
 	for i in range(0, Global.num_extra_projectiles + 1):
 		fire_projectile(i)
 		

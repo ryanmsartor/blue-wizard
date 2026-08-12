@@ -3,14 +3,16 @@ extends Node
 export(float) var sample_hz = 11025.0
 
 var Instrument = preload("res://scripts/audio/Instrument.gd")
+var ChordalInstrument = preload("res://scripts/audio/ChordalInstrument.gd")
 
-var SquareInstrument = preload("res://scripts/audio/SquareInstrument.gd")
 var SineInstrument = preload("res://scripts/audio/SineInstrument.gd")
+var SquareInstrument = preload("res://scripts/audio/SquareInstrument.gd")
 var SawInstrument = preload("res://scripts/audio/SawInstrument.gd")
 var TriangleInstrument = preload("res://scripts/audio/TriangleInstrument.gd")
 
 var OctaveSquareInstrument = preload("res://scripts/audio/OctaveSquareInstrument.gd")
 var ChordSineInstrument = preload("res://scripts/audio/ChordSineInstrument.gd")
+var ArpeggioSawInstrument = preload("res://scripts/audio/ArpeggioSawInstrument.gd")
 
 
 var playback: AudioStreamPlayback = null
@@ -18,6 +20,7 @@ var instruments = []
 
 var bass
 var chord
+var peggi
 
 var song_position: int = 0
 
@@ -44,6 +47,9 @@ func advance_song(song, note_length):
 	chord.set_chord_type(song.chord_types[song_position])
 	chord.envelope_time = note_length
 	
+	peggi.set_note(song.chord_notes[song_position])
+	peggi.set_chord_type(song.chord_types[song_position])
+	
 	song_position += 1
 	if song_position >= song.bassline.size():
 		song_position = 0
@@ -58,18 +64,23 @@ func _ready():
 	playback = $AudioStreamPlayer.get_stream_playback()
 
 	bass = OctaveSquareInstrument.new()
-	bass.set_note("F_2")
 	bass.set_envelope(0.05,2,0.7)
 	bass.set_volume(0.2)
 	bass.notes_per_beat = 2
 
 	chord = ChordSineInstrument.new()
-	chord.set_note("F_4")
+	chord.set_chord_type("Maj7")
 	chord.set_envelope(0.5,2,0.5)
 	chord.set_volume(0.5)
-	chord.set_chord_type("Dom7")
+
+	peggi = ArpeggioSawInstrument.new()
+	peggi.set_chord_type("Maj7")
+	peggi.set_envelope(0.01,0.1,0.9)
+	peggi.set_volume(0.2)
+
 	instruments.append(bass)
 	instruments.append(chord)
+	instruments.append(peggi)
 
 	_fill_buffer()
 
