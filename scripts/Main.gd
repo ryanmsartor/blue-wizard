@@ -11,8 +11,6 @@ var player_position		: Vector2
 var max_enemies_onscreen: int = 0
 var num_enemies_left	: int = 0
 
-var song_position: int = 0
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(title_scene.instance())
@@ -48,18 +46,8 @@ func _on_SpawnTimer_timeout():
 		num_enemies_left -= 1
 	$SpawnTimer.set_wait_time(new_wait_time)
 	
-	Synthesizer.bass.set_note(Synthesizer.main_bassline[song_position])
-	Synthesizer.bass.envelope_time = new_wait_time * 0.95
-	
-	Synthesizer.chord.set_note(Synthesizer.main_chord_notes[song_position])
-	Synthesizer.chord.set_chord_type(Synthesizer.main_chord_types[song_position])
-	Synthesizer.chord.envelope_time = new_wait_time
-	
 	Synthesizer.bass.trigger()
-	
-	song_position += 1
-	if song_position >= Synthesizer.main_bassline.size():
-		song_position = 0
+	Synthesizer.advance_song(Synthesizer.main_theme, new_wait_time)
 	
 	
 func end_round():
@@ -115,4 +103,5 @@ func game_over():
 	if Global.score > Global.high_score:
 		Global.high_score = Global.score
 		Global.save_high_score()
+	$SpawnTimer.stop()
 	add_child(gameover_scene.instance())

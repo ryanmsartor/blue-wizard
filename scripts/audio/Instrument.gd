@@ -13,42 +13,52 @@ var envelope_position: float = 0.0
 var envelope_active: bool = false
 var use_envelope: bool = true
 
+var notes_per_beat: float = 1.0
+
 func trigger():
 	envelope_position = 0.0
 	envelope_active = true
 	
 
 func get_envelope_volume(sample_hz):
-	
+
 	if not use_envelope:
 		return 1.0
-	
+
 	if not envelope_active:
 		return 0.0
 
-	var attack_time = envelope_time * attack_ratio
-	var release_time = envelope_time * release_ratio
-	var hold_time = envelope_time - attack_time - release_time
+	if notes_per_beat <= 0.0:
+		return 0.0
+
+	var note_duration = envelope_time / notes_per_beat
+
+	var attack_time = note_duration * attack_ratio
+	var release_time = note_duration * release_ratio
+	var hold_time = note_duration - attack_time - release_time
 
 	var current_time = envelope_position / sample_hz
 
+	# Determine where we are within the current n-let.
+	var note_position = fmod(current_time, note_duration)
+
 	var envelope_volume = 1.0
 
-	if current_time < attack_time:
+	if attack_time > 0.0 and note_position < attack_time:
 		# Attack
-		envelope_volume = current_time / attack_time
+		envelope_volume = note_position / attack_time
 
-	elif current_time < attack_time + hold_time:
+	elif note_position < attack_time + hold_time:
 		# Hold
 		envelope_volume = 1.0
 
-	elif current_time < envelope_time:
+	elif release_time > 0.0:
 		# Release
-		var release_position = current_time - attack_time - hold_time
+		var release_position = note_position - attack_time - hold_time
 		envelope_volume = 1.0 - (release_position / release_time)
 
-	else:
-		# Envelope finished
+	# Have we reached the end of the entire envelope?
+	if current_time >= envelope_time:
 		envelope_volume = 0.0
 		envelope_active = false
 
@@ -65,9 +75,9 @@ func generate_sample(sample_hz):
 
 
 func set_envelope(attack, duration, release):
-	attack_ratio = clamp(0.0, attack, 1.0)
+	attack_ratio = clamp(attack, 0.0, 1.0)
 	envelope_time = duration
-	release_ratio = clamp(0.0, release, (1.0 - attack))
+	release_ratio = clamp(release, 0.0, (1.0 - attack_ratio))
 
 func set_volume(vol):
 	volume = clamp(vol, 0.0, 1.0)

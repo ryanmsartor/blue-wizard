@@ -23,4 +23,5 @@ func _ready():
 
 func _on_StartButton_pressed():
 	get_tree().set_pause(false)
+	get_parent().get_node("SpawnTimer").start()
 	self.queue_free()

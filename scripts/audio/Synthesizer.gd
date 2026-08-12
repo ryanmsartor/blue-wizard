@@ -19,28 +19,34 @@ var instruments = []
 var bass
 var chord
 
+var song_position: int = 0
 
-var main_bassline = [
-	"F_2",
-	"C_2",
-	"D#_2",
-	"A_1"
-]
+var main_theme = {
+	"bassline": [
+		"F_2",	"C_2",	"D#_2",	"A_1",
+		"B_1",	"C#_2",	"D#_2",	"G_2"
+	],
+	"chord_notes": [
+		"F_4",	"F_4",	"D#_4",	"A_3",
+		"B_3",	"A_3",	"G#_3",	"G_3"
+	],
+	"chord_types": [
+		"Maj7",	"Min7",	"Maj7",	"Maj9",
+		"Min7",	"Maj9",	"Maj9",	"Maj9"
+	]
+}
 
-var main_chord_notes = [
-	"F_4",
-	"F_4",
-	"D#_4",
-	"A_3"
-]
-
-var main_chord_types = [
-	"Maj7",
-	"Min7",
-	"Dom7",
-	"Maj9"
-]
-
+func advance_song(song, note_length):
+	bass.set_note(song.bassline[song_position])
+	bass.envelope_time = note_length
+	
+	chord.set_note(song.chord_notes[song_position])
+	chord.set_chord_type(song.chord_types[song_position])
+	chord.envelope_time = note_length
+	
+	song_position += 1
+	if song_position >= song.bassline.size():
+		song_position = 0
 
 func _ready():
 	var generator = AudioStreamGenerator.new()
@@ -53,8 +59,9 @@ func _ready():
 
 	bass = OctaveSquareInstrument.new()
 	bass.set_note("F_2")
-	bass.set_envelope(0.05,1.9,0.7)
+	bass.set_envelope(0.05,2,0.7)
 	bass.set_volume(0.2)
+	bass.notes_per_beat = 2
 
 	chord = ChordSineInstrument.new()
 	chord.set_note("F_4")
@@ -73,7 +80,7 @@ func _process(_delta):
 	print(playback.get_frames_available())
 
 func _fill_buffer():
-	var to_fill = playback.get_frames_available()
+	var to_fill = min(playback.get_frames_available(), 128)
 
 	while to_fill > 0:
 		var sample = 0.0
