@@ -13,4 +13,4 @@ func generate_sample(sample_hz):
 	return (
 		(sample * (1.0 - octave_mix)) +
 		(sample2 * octave_mix)
-	) * volume
+	) * volume * get_envelope_volume(sample_hz)

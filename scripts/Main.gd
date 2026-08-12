@@ -11,6 +11,7 @@ var player_position		: Vector2
 var max_enemies_onscreen: int = 0
 var num_enemies_left	: int = 0
 
+var song_position: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,10 +43,24 @@ func _on_SpawnTimer_timeout():
 	var new_wait_time = max(0.01, (2.05 - (0.05 * Global.round_number)))
 	if num_enemies_left <= 0 and skellies_onscreen <= 0:
 		end_round()	
-	if skellies_onscreen < max_enemies_onscreen and num_enemies_left > 0:
+	if skellies_onscreen < max_enemies_onscreen and num_enemies_left > 0 and not get_tree().is_paused():
 		spawn_skeleton()
 		num_enemies_left -= 1
 	$SpawnTimer.set_wait_time(new_wait_time)
+	
+	Synthesizer.bass.set_note(Synthesizer.main_bassline[song_position])
+	Synthesizer.bass.envelope_time = new_wait_time * 0.95
+	
+	Synthesizer.chord.set_note(Synthesizer.main_chord_notes[song_position])
+	Synthesizer.chord.set_chord_type(Synthesizer.main_chord_types[song_position])
+	Synthesizer.chord.envelope_time = new_wait_time
+	
+	Synthesizer.bass.trigger()
+	
+	song_position += 1
+	if song_position >= Synthesizer.main_bassline.size():
+		song_position = 0
+	
 	
 func end_round():
 	Global.round_number += 1
@@ -70,6 +85,7 @@ func spawn_skeleton():
 		skelly.position.y = screen_size.y
 		skelly.position.x = get_random_y_coord()
 	add_child(skelly)
+	Synthesizer.chord.trigger()
 	
 func get_random_edge():
 	return randi() % 4

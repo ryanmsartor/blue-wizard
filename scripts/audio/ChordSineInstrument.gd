@@ -102,4 +102,4 @@ func generate_sample(sample_hz):
 			phases[i] + (frequency * chord_ratios[i]) / sample_hz,
 			1.0
 		)
-	return sample / float(chord_ratios.size()) * volume
+	return sample / float(chord_ratios.size()) * volume * get_envelope_volume(sample_hz)
