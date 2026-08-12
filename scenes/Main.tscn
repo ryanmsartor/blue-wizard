@@ -31,4 +31,8 @@ color = Color( 0.278431, 0.0627451, 0.0627451, 1 )
 pause_mode = 2
 wait_time = 2.0
 
+[node name="HalfSpawnTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="HalfSpawnTimer" to="." method="_on_HalfSpawnTimer_timeout"]

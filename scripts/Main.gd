@@ -48,7 +48,16 @@ func _on_SpawnTimer_timeout():
 	
 	Synthesizer.bass.trigger()
 	Synthesizer.advance_song(Synthesizer.main_theme, new_wait_time)
-	
+	if Global.round_number >= 5:
+		Synthesizer.hat.trigger()
+	if Global.round_number >= 10:
+		$HalfSpawnTimer.set_wait_time(new_wait_time / 2)
+		$HalfSpawnTimer.start()
+
+func _on_HalfSpawnTimer_timeout():
+	Synthesizer.hat.trigger()
+
+
 	
 func end_round():
 	Global.round_number += 1
@@ -105,3 +114,4 @@ func game_over():
 		Global.save_high_score()
 	$SpawnTimer.stop()
 	add_child(gameover_scene.instance())
+

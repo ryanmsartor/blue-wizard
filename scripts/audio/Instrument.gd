@@ -14,11 +14,17 @@ var envelope_active: bool = false
 var use_envelope: bool = true
 
 var notes_per_beat: float = 1.0
+var previous_note_index: int = -1
+
+
 
 func trigger():
 	envelope_position = 0.0
 	envelope_active = true
+	previous_note_index = -1
 	
+func _on_subdivision():
+	pass
 
 func get_envelope_volume(sample_hz):
 
@@ -28,36 +34,37 @@ func get_envelope_volume(sample_hz):
 	if not envelope_active:
 		return 0.0
 
-	if notes_per_beat <= 0.0:
-		return 0.0
-
 	var note_duration = envelope_time / notes_per_beat
+	var current_time = envelope_position / sample_hz
+
+	var note_index = int(current_time / note_duration)
+
+	# We've entered a new subdivision.
+	if note_index != previous_note_index:
+		previous_note_index = note_index
+		_on_subdivision()
 
 	var attack_time = note_duration * attack_ratio
 	var release_time = note_duration * release_ratio
 	var hold_time = note_duration - attack_time - release_time
 
-	var current_time = envelope_position / sample_hz
-
-	# Determine where we are within the current n-let.
 	var note_position = fmod(current_time, note_duration)
 
 	var envelope_volume = 1.0
 
 	if attack_time > 0.0 and note_position < attack_time:
-		# Attack
 		envelope_volume = note_position / attack_time
 
 	elif note_position < attack_time + hold_time:
-		# Hold
 		envelope_volume = 1.0
 
-	elif release_time > 0.0:
-		# Release
+	elif release_time > 0.0 and note_position < note_duration:
 		var release_position = note_position - attack_time - hold_time
 		envelope_volume = 1.0 - (release_position / release_time)
 
-	# Have we reached the end of the entire envelope?
+	else:
+		envelope_volume = 0.0
+
 	if current_time >= envelope_time:
 		envelope_volume = 0.0
 		envelope_active = false
@@ -65,6 +72,8 @@ func get_envelope_volume(sample_hz):
 	envelope_position += 1.0
 
 	return envelope_volume
+
+
 
 
 # overridden by specific instrument class scripts

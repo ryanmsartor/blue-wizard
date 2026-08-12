@@ -5,6 +5,7 @@ export(float) var sample_hz = 11025.0
 var Instrument = preload("res://scripts/audio/Instrument.gd")
 var ChordalInstrument = preload("res://scripts/audio/ChordalInstrument.gd")
 
+var NoiseInstrument = preload("res://scripts/audio/NoiseInstrument.gd")
 var SineInstrument = preload("res://scripts/audio/SineInstrument.gd")
 var SquareInstrument = preload("res://scripts/audio/SquareInstrument.gd")
 var SawInstrument = preload("res://scripts/audio/SawInstrument.gd")
@@ -21,17 +22,30 @@ var instruments = []
 var bass
 var chord
 var peggi
+var hat
 
 var song_position: int = 0
 
 var main_theme = {
 	"bassline": [
 		"F_2",	"C_2",	"D#_2",	"A_1",
-		"B_1",	"C#_2",	"D#_2",	"G_2"
+		"B_1",	"C#_2",	"D#_2",	"G_2",
+		"F_2",	"C_2",	"D#_2",	"A_1",
+		"B_1",	"C#_2",	"D#_2",	"G_2",
+		"F_2",	"C_2",	"D#_2",	"A_1",
+		"A#_1",	"A_1",	"G#_1",	"G_1",
+		"F_2",	"F_2",	"D#_2", "D#_2",
+		"C#_2", "C#_2", "C_2",	"C_2"
+	],
+	"bass_divisions": [
+		1, 1, 1, 1,	1, 1, 1, 1,
+		2, 1, 2, 1,	4, 2, 2, 1,
+		2, 2, 2, 2,	4, 4, 4, 1,
+		1, 1, 1, 2,	1, 2, 1, 2
 	],
 	"chord_notes": [
 		"F_4",	"F_4",	"D#_4",	"A_3",
-		"B_3",	"A_3",	"G#_3",	"G_3"
+		"B_3",	"A_3",	"G#_3",	"G_3"	
 	],
 	"chord_types": [
 		"Maj7",	"Min7",	"Maj7",	"Maj9",
@@ -42,17 +56,17 @@ var main_theme = {
 func advance_song(song, note_length):
 	bass.set_note(song.bassline[song_position])
 	bass.envelope_time = note_length
+	bass.notes_per_beat = song.bass_divisions[song_position % song.bass_divisions.size()]
 	
-	chord.set_note(song.chord_notes[song_position])
-	chord.set_chord_type(song.chord_types[song_position])
+	chord.set_note(song.chord_notes[song_position % song.chord_notes.size()])
+	chord.set_chord_type(song.chord_types[song_position % song.chord_types.size()])
 	chord.envelope_time = note_length
 	
-	peggi.set_note(song.chord_notes[song_position])
-	peggi.set_chord_type(song.chord_types[song_position])
+	peggi.set_note(song.chord_notes[song_position % song.chord_notes.size()])
+	peggi.set_chord_type(song.chord_types[song_position % song.chord_types.size()])
 	
 	song_position += 1
-	if song_position >= song.bassline.size():
-		song_position = 0
+	song_position %= song.bassline.size()
 
 func _ready():
 	var generator = AudioStreamGenerator.new()
@@ -65,7 +79,7 @@ func _ready():
 
 	bass = OctaveSquareInstrument.new()
 	bass.set_envelope(0.05,2,0.7)
-	bass.set_volume(0.2)
+	bass.set_volume(0.175)
 	bass.notes_per_beat = 2
 
 	chord = ChordSineInstrument.new()
@@ -75,20 +89,23 @@ func _ready():
 
 	peggi = ArpeggioSawInstrument.new()
 	peggi.set_chord_type("Maj7")
-	peggi.set_envelope(0.01,0.1,0.9)
+	peggi.set_envelope(0.01,0.15,0.9)
 	peggi.set_volume(0.2)
+	
+	hat = NoiseInstrument.new()
+	hat.set_envelope(0,0.02,0.1)
+	hat.set_volume(0.1)
 
 	instruments.append(bass)
 	instruments.append(chord)
 	instruments.append(peggi)
+	instruments.append(hat)
 
 	_fill_buffer()
 
 
 func _process(_delta):
-	print(playback.get_frames_available())
 	_fill_buffer()
-	print(playback.get_frames_available())
 
 func _fill_buffer():
 	var to_fill = min(playback.get_frames_available(), 128)
