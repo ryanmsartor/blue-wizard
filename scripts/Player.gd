@@ -25,8 +25,7 @@ func _process(delta):
 	)
 
 	if can_attack == true:
-		if Input.is_action_pressed("ui_accept") \
-		or aim.length() > 0.4:
+		if aim.length() > 0.3:
 			attack()
 
 
@@ -74,43 +73,9 @@ func fire_projectile(num_extras):
 	projectile.position = position
 	projectile.speed *= ( 1.0 + ( Global.projectile_speed_boost / 10.0))
 	
-	if aim.length() < 0.3:
-		
-		if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):	# up right
-			projectile.rotation = PI / 4
-			projectile.position.y -= 4
-			projectile.position.x += 8
-		elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"): # down right
-			projectile.rotation = 3 * PI / 4
-			projectile.position.y += 12
-			projectile.position.x += 8
-		elif Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"): # down left
-			projectile.rotation = 5 * PI / 4
-			projectile.position.y += 12
-			projectile.position.x -= 8
-		elif Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"): # up left
-			projectile.rotation = 7 * PI / 4
-			projectile.position.y -= 4
-			projectile.position.x -= 8
-		elif $AnimatedSprite.animation == "up":		# up
-			projectile.rotation = 0
-			projectile.position.y -= 12
-		elif $AnimatedSprite.animation == "down":	# down
-			projectile.rotation = PI
-			projectile.position.y += 12
-		elif $AnimatedSprite.animation == "right":
-			projectile.position.y += 4
-			if $AnimatedSprite.flip_h: 				# left
-				projectile.rotation = 3 * PI / 2
-				projectile.position.x -= 12
-			else: 									# right
-				projectile.rotation = PI / 2
-				projectile.position.x += 12
-	
-	else:
-		aim = aim.normalized()
-		projectile.rotation = aim.angle() + PI / 2
-		projectile.position += aim * 12
+	aim = aim.normalized()
+	projectile.rotation = aim.angle() + PI / 2
+	projectile.position += aim * 12
 	
 	# add spread for extra projectiles
 	projectile.rotation += (num_extras *(rand_range(PI/-24, PI/24) ) )

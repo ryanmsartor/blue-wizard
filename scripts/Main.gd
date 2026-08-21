@@ -53,10 +53,19 @@ func _on_SpawnTimer_timeout():
 	if Global.round_number >= 10:
 		$HalfSpawnTimer.set_wait_time(new_wait_time / 2)
 		$HalfSpawnTimer.start()
+	if Global.round_number >= 15:
+		$QuarterSpawnTimer.set_wait_time(new_wait_time / 4)
+		$QuarterSpawnTimer.start()
 
 func _on_HalfSpawnTimer_timeout():
 	Synthesizer.hat.trigger()
+	if Global.round_number >= 20:
+		Synthesizer.bass.set_note(Synthesizer.main_theme.bass_embellishments[Synthesizer.song_position])
+	if Global.round_number >= 25:
+		$QuarterSpawnTimer.start()
 
+func _on_QuarterSpawnTimer_timeout():
+	Synthesizer.hat.trigger()
 
 	
 func end_round():

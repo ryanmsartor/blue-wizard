@@ -43,6 +43,16 @@ var main_theme = {
 		2, 2, 2, 2,	4, 4, 4, 1,
 		1, 1, 1, 2,	1, 2, 1, 2
 	],
+	"bass_embellishments": [
+		"F_3",	"C_3",	"D#_3",	"A_2",
+		"B_2",	"C#_3",	"D#_3",	"G_3",
+		"F_3",	"C_3",	"D#_3",	"A_2",
+		"B_2",	"C#_3",	"D#_3",	"G_3",
+		"F_3",	"C_3",	"D#_3",	"A_2",
+		"A#_2",	"A_2",	"G#_2",	"G_2",
+		"F_3",	"F_3",	"D#_3", "D#_3",
+		"C#_3", "C#_3", "C_3",	"C_3"
+	],
 	"chord_notes": [
 		"F_4",	"F_4",	"D#_4",	"A_3",
 		"B_3",	"A_3",	"G#_3",	"G_3"	
@@ -71,7 +81,7 @@ func advance_song(song, note_length):
 func _ready():
 	var generator = AudioStreamGenerator.new()
 	generator.mix_rate = sample_hz
-	generator.buffer_length = 0.05
+	generator.buffer_length = 0.1
 	$AudioStreamPlayer.stream = generator
 	$AudioStreamPlayer.play()
 
@@ -108,7 +118,7 @@ func _process(_delta):
 	_fill_buffer()
 
 func _fill_buffer():
-	var to_fill = min(playback.get_frames_available(), 128)
+	var to_fill = min(playback.get_frames_available(), 256)
 
 	while to_fill > 0:
 		var sample = 0.0

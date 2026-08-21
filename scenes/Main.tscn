@@ -34,5 +34,10 @@ wait_time = 2.0
 [node name="HalfSpawnTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="QuarterSpawnTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="HalfSpawnTimer" to="." method="_on_HalfSpawnTimer_timeout"]
+[connection signal="timeout" from="QuarterSpawnTimer" to="." method="_on_QuarterSpawnTimer_timeout"]
