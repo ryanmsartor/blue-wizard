@@ -63,6 +63,119 @@ var main_theme = {
 	]
 }
 
+var title_theme = {
+	"bassline": [
+		"F_2",	"C_2",	"D#_2",	"A_1",
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"F_2",	"C_2",	"D#_2",	"A_1",
+		"G_1",	"G_1",	"G_1",	"G_1",	
+		"G_1",	"G_1",	"G_1",	"G_1",
+		"F_2",	"C_2",	"D#_2",	"A_1",
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"F_2",	"C_2",	"D#_2",	"A_1",
+		"D#_2",	"D#_2",	"D#_2",	"D#_2",	
+		"D_2",	"D_2",	"D_2",	"D_2",
+		
+		"C_2",	"C_2",	"C_2",	"C_2",	
+		"F_1",	"F_1",	"F_1",	"F_1",	
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"A_1",	"A_1",	"A_1",	"A_1",
+		
+		"C_2",	"C_2",	"C_2",	"C_2",	
+		"F_1",	"F_1",	"F_1",	"F_1",	
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"G_1",	"G_1",	"G_1",	"G_1",
+		
+		"C_2",	"C_2",	"C_2",	"C_2",	
+		"F_1",	"F_1",	"F_1",	"F_1",	
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"A_1",	"A_1",	"A_1",	"A_1",
+		
+		"C_2",	"C_2",	"C_2",	"C_2",	
+		"F_1",	"F_1",	"F_1",	"F_1",	
+		"A#_1",	"A#_1",	"A#_1",	"A#_1",
+		"G_1",	"G_1",	"G_1",	"G_1"
+
+	],
+	"bass_divisions":[
+		1, 1, 1, 1,	2, 2, 2, 1
+	],
+	"chord_notes": [
+		"F_4",	"F_4",	"F_4",	"F_4",
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"F_4",	"F_4",	"F_4",	"F_4",
+		"G_4",	"G_4",	"G_4",	"G_4",
+		"G_4",	"G_4",	"G_4",	"G_4",
+		"F_4",	"F_4",	"F_4",	"F_4",
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"F_4",	"F_4",	"F_4",	"F_4",
+		"D#_4",	"D#_4",	"D#_4",	"D#_4",
+		"D_4",	"D_4",	"D_4",	"D_4",
+		
+		"C_4",	"C_4",	"C_4",	"C_4",	
+		"F_4",	"F_4",	"F_4",	"F_4",	
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"A_4",	"A_4",	"A_4",	"A_4",
+		
+		"C_4",	"C_4",	"C_4",	"C_4",	
+		"F_4",	"F_4",	"F_4",	"F_4",	
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"G_4",	"G_4",	"G_4",	"G_4",
+		
+		"C_4",	"C_4",	"C_4",	"C_4",	
+		"F_4",	"F_4",	"F_4",	"F_4",	
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"A_4",	"A_4",	"A_4",	"A_4",
+		
+		"C_4",	"C_4",	"C_4",	"C_4",	
+		"F_4",	"F_4",	"F_4",	"F_4",	
+		"A#_4",	"A#_4",	"A#_4",	"A#_4",
+		"G_4",	"G_4",	"G_4",	"G_4"
+		
+	],
+	"chord_types": [
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Min7",	"Min7",	"Min7",	"Min7",
+		"Min7",	"Min7",	"Min7",	"Min7",
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",
+		
+		"Maj9",	"Maj9",	"Maj9",	"Maj9",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		
+		"Maj9",	"Maj9",	"Maj9",	"Maj9",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Min7",	"Min7",	"Min7",	"Min7",
+		
+		"Maj9",	"Maj9",	"Maj9",	"Maj9",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		
+		"Maj9",	"Maj9",	"Maj9",	"Maj9",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Maj7",	"Maj7",	"Maj7",	"Maj7",	
+		"Min7",	"Min7",	"Min7",	"Min7"
+	],
+}
+
+
+
+
 func advance_song(song, note_length):
 	bass.set_note(song.bassline[song_position])
 	bass.envelope_time = note_length
@@ -70,7 +183,8 @@ func advance_song(song, note_length):
 	
 	chord.set_note(song.chord_notes[song_position % song.chord_notes.size()])
 	chord.set_chord_type(song.chord_types[song_position % song.chord_types.size()])
-	chord.envelope_time = note_length
+	if song == main_theme:
+		chord.envelope_time = note_length
 	
 	peggi.set_note(song.chord_notes[song_position % song.chord_notes.size()])
 	peggi.set_chord_type(song.chord_types[song_position % song.chord_types.size()])

@@ -64,4 +64,8 @@ margin_right = 79.0
 margin_bottom = 17.0
 text = "High Score: 0"
 
+[node name="EighthNoteTimer" type="Timer" parent="."]
+wait_time = 0.333
+
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="timeout" from="EighthNoteTimer" to="." method="_on_EighthNoteTimer_timeout"]

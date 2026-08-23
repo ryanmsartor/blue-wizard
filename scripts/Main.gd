@@ -16,7 +16,6 @@ func _ready():
 	add_child(title_scene.instance())
 	screen_size = get_viewport_rect().size
 	randomize()
-	$SpawnTimer.start()
 	start_round()
 
 
