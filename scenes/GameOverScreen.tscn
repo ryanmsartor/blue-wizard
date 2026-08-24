@@ -71,4 +71,7 @@ margin_bottom = 72.0
 text = "Final Score: 0"
 align = 1
 
+[node name="EighthNoteTimer" type="Timer" parent="."]
+
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="timeout" from="EighthNoteTimer" to="." method="_on_EighthNoteTimer_timeout"]

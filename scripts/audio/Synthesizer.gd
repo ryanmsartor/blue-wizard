@@ -254,7 +254,7 @@ func _ready():
 	peggi = ArpeggioSawInstrument.new()
 	peggi.set_chord_type("Maj7")
 	peggi.set_envelope(0.01,0.15,0.9)
-	peggi.set_volume(0.2)
+	peggi.set_volume(0.25)
 	
 	hat = NoiseInstrument.new()
 	hat.set_envelope(0,0.02,0.1)
