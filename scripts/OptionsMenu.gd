@@ -20,6 +20,7 @@ func _on_AcceptButton_pressed():
 	get_parent().get_node("StartButton").visible = true
 	get_parent().get_node("OptionsButton").visible = true
 	get_parent().get_node("OptionsButton").grab_focus()
+		
 	self.queue_free()
 
 

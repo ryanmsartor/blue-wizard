@@ -1,9 +1,7 @@
 extends Panel
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export (PackedScene) var menu_scene
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,9 +17,26 @@ func _ready():
 	$GridContainer/ScoreMultLabel.text = "Score Mult: " + "%.2f" % Global.calculate_true_score_mult() + "\n"
 	$GridContainer/PierceLabel.visible = Global.attacks_pierce
 	$GridContainer/ScanLabel.visible = Global.can_see_enemy_health
+	$OptionsButton.grab_focus()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("pause_game"):
 		get_tree().set_pause(false)
 		self.queue_free()
+
+
+func _on_OptionsButton_pressed():
+	var menu = menu_scene.instance()
+	menu.rect_position.x = 0
+	menu.rect_position.y = 0
+	menu.get_stylebox("panel").bg_color = Color(0.113725, 0.05098, 0.352941)
+	$StartButton.visible = false
+	$OptionsButton.visible = false
+	add_child(menu)
+
+
+
+func _on_StartButton_pressed():
+	get_tree().set_pause(false)
+	self.queue_free()

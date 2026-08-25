@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/PauseScreen.gd" type="Script" id=1]
+[ext_resource path="res://scenes/OptionsMenu.tscn" type="PackedScene" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.113725, 0.0509804, 0.352941, 1 )
@@ -8,6 +9,9 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="ShortCut" id=2]
+resource_name = "ui_accept"
 
 [node name="PauseScreen" type="Panel"]
 pause_mode = 2
@@ -17,6 +21,7 @@ margin_right = 296.0
 margin_bottom = 216.0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
+menu_scene = ExtResource( 2 )
 
 [node name="PauseLabel" type="Label" parent="."]
 margin_right = 272.0
@@ -107,3 +112,24 @@ margin_top = 140.0
 margin_right = 244.0
 margin_bottom = 154.0
 text = "See Enemy HP"
+
+[node name="OptionsButton" type="Button" parent="."]
+margin_left = -16.0
+margin_top = 194.0
+margin_right = 132.0
+margin_bottom = 214.0
+shortcut = SubResource( 2 )
+text = "OPTIONS"
+icon_align = 1
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 140.0
+margin_top = 194.0
+margin_right = 288.0
+margin_bottom = 214.0
+shortcut = SubResource( 2 )
+text = "RESUME"
+icon_align = 1
+
+[connection signal="pressed" from="OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
