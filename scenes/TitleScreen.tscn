@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://sprites/blue_wizard.png" type="Texture" id=1]
 [ext_resource path="res://scripts/TitleScreen.gd" type="Script" id=2]
+[ext_resource path="res://scenes/OptionsMenu.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -30,9 +31,10 @@ margin_right = 320.0
 margin_bottom = 240.0
 color = Color( 0.113725, 0.0509804, 0.352941, 1 )
 script = ExtResource( 2 )
+menu_scene = ExtResource( 3 )
 
 [node name="PlayerSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 160, 140 )
+position = Vector2( 160, 130 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
 playing = true
@@ -50,11 +52,20 @@ autowrap = true
 
 [node name="StartButton" type="Button" parent="."]
 margin_left = 80.0
+margin_top = 173.0
+margin_right = 240.0
+margin_bottom = 193.0
+shortcut = SubResource( 4 )
+text = "START GAME"
+icon_align = 1
+
+[node name="OptionsButton" type="Button" parent="."]
+margin_left = 80.0
 margin_top = 200.0
 margin_right = 240.0
 margin_bottom = 220.0
 shortcut = SubResource( 4 )
-text = "START GAME"
+text = "OPTIONS"
 icon_align = 1
 
 [node name="ScoreLabel" type="Label" parent="."]
@@ -68,4 +79,5 @@ text = "High Score: 0"
 wait_time = 0.333
 
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="timeout" from="EighthNoteTimer" to="." method="_on_EighthNoteTimer_timeout"]

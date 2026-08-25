@@ -26,6 +26,18 @@ var hat
 
 var song_position: int = 0
 
+var bgm_volume: float = 100.0
+
+func load_bgm_volume():
+	var file = File.new()
+	if file.file_exists("user://bgm_volume.dat"):
+		file.open("user://bgm_volume.dat", File.READ)
+		bgm_volume = file.get_var()
+		file.close()
+	else:
+		bgm_volume = 100.0
+
+
 var main_theme = {
 	"bassline": [
 		"F_2",	"C_2",	"D#_2",	"A_1",
@@ -233,6 +245,9 @@ func advance_song(song, note_length):
 	song_position %= song.bassline.size()
 
 func _ready():
+	
+	load_bgm_volume()
+	
 	var generator = AudioStreamGenerator.new()
 	generator.mix_rate = sample_hz
 	generator.buffer_length = 0.1
@@ -282,6 +297,9 @@ func _fill_buffer():
 
 		# Prevent clipping when multiple instruments are playing.
 		sample = clamp(sample, -1.0, 1.0)
+		
+		# attenuate based on user-set bgm volume level
+		sample *= ( bgm_volume / 100 )
 
 		playback.push_frame(Vector2.ONE * sample)
 
