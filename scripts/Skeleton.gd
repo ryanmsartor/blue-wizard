@@ -4,22 +4,15 @@ var move_speed: int
 var health: int
 var is_stunned: bool = false
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	print("Skeleton spawned at ", position.x, ", ", position.y)
-	
 	move_speed = 30 + 2 * Global.round_number
 	health = int(2.1 * Global.round_number)
 	if Global.can_see_enemy_health:
+		$HealthLabel.text = str(health)
 		$HealthLabel.visible = true
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# chase player
 	var player_pos = get_parent().player_position
@@ -27,7 +20,6 @@ func _process(delta):
 	if not is_stunned:
 		position += direction * move_speed * delta
 	
-	$HealthLabel.text = str(health)
 
 func _on_Skeleton_area_entered(_area):
 	take_damage()
@@ -37,6 +29,7 @@ func _on_Skeleton_area_entered(_area):
 func take_damage():
 	blink_red()
 	health -= Global.get_attack_damage()
+	$HealthLabel.text = str(health)
 	if Global.attack_stun_time > 0:
 		$StunTimer.set_wait_time(0.2 * Global.attack_stun_time)
 		$StunTimer.start()

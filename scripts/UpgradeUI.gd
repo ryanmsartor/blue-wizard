@@ -94,7 +94,6 @@ func act_on_button(button_text):
 			Global.score_mult += 1
 		str_stun:
 			Global.attack_stun_time += 1
-	print("Selected ", button_text)
 	get_tree().set_pause(false)
 	self.queue_free()
 
