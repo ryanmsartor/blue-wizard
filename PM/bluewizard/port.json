@@ -5,13 +5,13 @@
         "Blue Wizard.sh",
         "bluewizard"
     ],
-    "items_opt": null,
+    "items_opt": [],
     "attr": {
         "title": "Blue Wizard",
         "porter": [
             "Ry"
         ],
-        "desc": "a game",
+        "desc": "You are a blue wizard, in a red room. Survive as long as you can, shooting for the high score.",
         "desc_md": null,
         "inst": "Ready to Run",
         "inst_md": null,
@@ -27,7 +27,9 @@
         "store": [],
         "availability": "full",
         "reqs": [],
-        "arch": [],
+        "arch": [
+            "aarch64"
+        ],
         "min_glibc": ""
     }
 }

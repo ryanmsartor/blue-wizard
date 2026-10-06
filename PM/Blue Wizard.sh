@@ -34,6 +34,12 @@ if [ ! -f "$controlfolder/libs/${runtime}.squashfs" ]; then
 	$ESUDO $controlfolder/harbourmaster --quiet --no-check runtime_check "${runtime}.squashfs"
 fi
 
+# updated .pck file plucked straight from a GH release has a different filename from the one Godot produces.
+# Normalize these, assuming one with the dot is the canonical newest copy.
+if [ -f "$GAMEDIR/gamedata/blue.wizard.pck" ]; then
+	mv -f "$GAMEDIR/gamedata/blue.wizard.pck" "$GAMEDIR/gamedata/blue wizard.pck"
+fi
+
 # Redirect Godot user:// writes into the port folder so saves stay with the port
 export XDG_DATA_HOME="$CONFDIR"
 

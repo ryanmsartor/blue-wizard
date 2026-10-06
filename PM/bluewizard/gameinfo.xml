@@ -3,7 +3,7 @@
 	<game>
 		<path>./Blue Wizard.sh</path>
 		<name>Blue Wizard</name>
-		<desc>a game</desc>
+		<desc>You are a blue wizard, in a red room. Survive as long as you can, shooting for the high score.</desc>
 		<releasedate>20260806T000000</releasedate>
 		<developer>Ry</developer>
 		<publisher>Ry</publisher>
